@@ -1,4 +1,4 @@
-package cn.sawyer.spider.chongqing.util;
+package cn.sawyer.spider.util;
 
 /**
  * @program: myspider

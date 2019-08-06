@@ -1,8 +1,8 @@
-package cn.sawyer.spider.chongqing.thread;
+package cn.sawyer.spider.thread;
 
-import cn.sawyer.spider.chongqing.pojo.QuarterInfo;
-import cn.sawyer.spider.chongqing.util.GaodeCoordinate;
-import cn.sawyer.spider.chongqing.util.QuarterSelector;
+import cn.sawyer.spider.pojo.QuarterInfo;
+import cn.sawyer.spider.util.GaodeCoordinate;
+import cn.sawyer.spider.util.QuarterSelector;
 import cn.sawyer.spider.util.CoordinateTransformUtils;
 import cn.sawyer.spider.util.Point;
 import com.mongodb.client.MongoCollection;
@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Random;
 
-import static cn.sawyer.spider.chongqing.util.BaseInfo.ua;
+import static cn.sawyer.spider.util.BaseInfo.ua;
 
 /**
  * @program: myspider
@@ -26,11 +26,13 @@ public class QuarterInfoThread extends Thread {
     private List<String> list;
     private MongoCollection<org.bson.Document> collection;
     private MongoCollection<org.bson.Document> urlCollection;
+    private String city;
 
-    public QuarterInfoThread(List<String> list, MongoCollection<org.bson.Document> collection, MongoCollection<org.bson.Document> urlCollection) {
+    public QuarterInfoThread(List<String> list, MongoCollection<org.bson.Document> collection, MongoCollection<org.bson.Document> urlCollection, String city) {
         this.list = list;
         this.collection = collection;
         this.urlCollection = urlCollection;
+        this.city = city;
     }
 
     @Override
@@ -52,7 +54,7 @@ public class QuarterInfoThread extends Thread {
                 quarterInfo.setName(doc.select(QuarterSelector.nameSelector).text());
                 quarterInfo.setHouseSellingNums(nums);
                 if (!quarterInfo.getName().isEmpty()) {
-                    String location = GaodeCoordinate.convert("重庆", quarterInfo.getLocation());
+                    String location = GaodeCoordinate.convert(city, quarterInfo.getLocation());
                     String x = location.split(",")[0];
                     String y = location.split(",")[1];
                     quarterInfo.setLongitude(x);
@@ -71,11 +73,11 @@ public class QuarterInfoThread extends Thread {
                     System.out.println("x:" + quarterInfo.getLongitude());
                     System.out.println("y:" + quarterInfo.getLatitude());
                     System.out.println("wgs84x:" + quarterInfo.getWgsx());
-                    System.out.println("wgs84x:" + quarterInfo.getWgsy());
+                    System.out.println("wgs84y:" + quarterInfo.getWgsy());
                     org.bson.Document document = new org.bson.Document("title", "MongoDB")
                             .append("小区名", quarterInfo.getName())
                             .append("在售房源数量", quarterInfo.getHouseSellingNums())
-                            .append("年份:", quarterInfo.getAge())
+                            .append("年份", quarterInfo.getAge())
                             .append("物业公司", quarterInfo.getCompany())
                             .append("均价", quarterInfo.getAvgPrice())
                             .append("位置", quarterInfo.getLocation())
@@ -83,12 +85,12 @@ public class QuarterInfoThread extends Thread {
                             .append("x", quarterInfo.getLongitude())
                             .append("y",quarterInfo.getLatitude())
                             .append("wgs84x", quarterInfo.getWgsx())
-                            .append("wgs84x", quarterInfo.getWgsy());
+                            .append("wgs84y", quarterInfo.getWgsy());
                     collection.insertOne(document);
-                    urlCollection.deleteOne(Filters.eq("herfNum", item));
+                    urlCollection.deleteOne(Filters.eq("hrefNum", item));
                 }
 
-            } catch (IOException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }

@@ -1,12 +1,9 @@
-package cn.sawyer.spider.chongqing.util;
+package cn.sawyer.spider.util;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import top.jfunc.json.impl.JSONArray;
 import top.jfunc.json.impl.JSONObject;
-
-import java.io.IOException;
-import java.util.List;
 
 /**
  * @program: myspider

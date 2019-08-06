@@ -1,4 +1,4 @@
-package cn.sawyer.spider.chongqing.util;
+package cn.sawyer.spider.util;
 
 /**
  * @program: myspider
@@ -35,5 +35,24 @@ public class QuarterBaseUrls {
             "https://cq.lianjia.com/xiaoqu/wanzhou/",
             "https://cq.lianjia.com/xiaoqu/fuling/",
     };
-
+    public static final String[] chengduUrlList = {
+            "https://cd.lianjia.com/xiaoqu/jinjiang/",
+            "https://cd.lianjia.com/xiaoqu/qingyang/",
+            "https://cd.lianjia.com/xiaoqu/wuhou/",
+            "https://cd.lianjia.com/xiaoqu/gaoxin7/",
+            "https://cd.lianjia.com/xiaoqu/chenghua/",
+            "https://cd.lianjia.com/xiaoqu/jinniu/",
+            "https://cd.lianjia.com/xiaoqu/tianfuxinqu/",
+            "https://cd.lianjia.com/xiaoqu/gaoxinxi1/",
+            "https://cd.lianjia.com/xiaoqu/shuangliu/",
+            "https://cd.lianjia.com/xiaoqu/wenjiang/",
+            "https://cd.lianjia.com/xiaoqu/pidou/",
+            "https://cd.lianjia.com/xiaoqu/longquanyi/",
+            "https://cd.lianjia.com/xiaoqu/xindou/",
+            "https://cd.lianjia.com/xiaoqu/tianfuxinqunanqu/",
+            "https://cd.lianjia.com/xiaoqu/qingbaijiang/",
+            "https://cd.lianjia.com/xiaoqu/doujiangyan/",
+            "https://cd.lianjia.com/xiaoqu/pengzhou/",
+            "https://cd.lianjia.com/xiaoqu/jianyang/",
+    };
 }

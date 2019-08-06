@@ -1,4 +1,4 @@
-package cn.sawyer.spider.chongqing.pojo;
+package cn.sawyer.spider.pojo;
 
 public class QuarterInfo {
 
